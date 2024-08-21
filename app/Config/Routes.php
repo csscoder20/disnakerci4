@@ -25,8 +25,6 @@ $routes->get('pelatihan', 'Frontend::pelatihan');
 $routes->get('pelatihan/detail_pelatihan/(:segment)', 'Frontend::detail_pelatihan/$1');
 $routes->get('kartu_ak1', 'Frontend::kartu_ak1');
 $routes->get('kontak', 'Frontend::kontak');
-$routes->post('kontak_kami', 'Frontend::kontak_kami');
-
 $routes->get('/', 'Settings::index');
 
 /**
@@ -107,9 +105,6 @@ $routes->post('admin_v2/usersajax', 'Admin::usersajax', ['filter' => 'role:admin
 $routes->post('admin_v2/update_status_user', 'Admin::update_status_user', ['filter' => 'role:administrator']);
 $routes->post('admin_v2/hapus_user', 'Admin::hapus_user', ['filter' => 'role:administrator']);
 $routes->get('admin_v2/hapus_user', 'Admin::hapus_user', ['filter' => 'role:administrator']);
-$routes->post('admin_v2/ubah_role_user', 'Admin::ubah_role_user', ['filter' => 'role:administrator']);
-$routes->get('admin_v2/get_user_by_id', 'Admin::get_user_by_id', ['filter' => 'role:administrator']);
-
 
 $routes->get('admin_v2/settings', 'Admin::settings', ['filter' => 'role:administrator']);
 $routes->get('admin_v2/backup', 'Admin::backup', ['filter' => 'role:administrator']);

@@ -87,42 +87,27 @@
             </div>
             <form id="uploadPengumumanForm" enctype="multipart/form-data" method="post">
                 <div class="modal-body">
-                    <div class="row">
-                        <input type="hidden" class="form-control" name="kategori" id="kategori" value="pengumuman">
-                        <input type="hidden" class="form-control" name="status" id="status" value="1">
-                        <div class="col-lg-12">
-                            <div class="mb-3">
-                                <label for="judul" class="form-label">Judul Pengumuman</label>
-                                <input type="text" class="form-control" id="judul" name="judul" required>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="mb-3">
-                                <span>Isi Pengumuman</span>
-                                <textarea id="isi" name="isi"></textarea>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="mb-3">
-                                <label for="tags">Tags Pengumuman</label>
-                                <input type="text" class="form-control" name="tags" id="tags" required>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="mb-3">
-                                <label for="link">Link Pengumuman (Google Drive, dll.)</label>
-                                <input type="text" class="form-control" name="link" id="link" required>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="mb-3">
-                                <span>Gambar Pengumuman</span>
-                                <div id="unggahGambarBaru" class="dropzone"></div>
-                                <!-- Cropper Container -->
-                                <div id="addPengumumanCropper" style="display: none;">
-                                    <img id="addPengumumanImage" src="" alt="Cropper">
-                                </div>
-                            </div>
+                    <input type="hidden" class="form-control" name="kategori" id="kategori" value="pengumuman">
+                    <div class="mb-3">
+                        <label for="judul" class="form-label">Judul Pengumuman</label>
+                        <input type="text" class="form-control" id="judul" name="judul" required>
+                    </div>
+                    <div class="mb-3">
+                        <span>Isi Pengumuman</span>
+                        <textarea id="isi" name="isi"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tags">Tags Pengumuman</label>
+                        <input type="text" class="form-control" name="tags" id="tags" required>
+                    </div>
+                    <input type="hidden" class="form-control" name="status" id="status" value="1">
+
+                    <div class="mb-3">
+                        <span>Gambar Pengumuman</span>
+                        <div id="unggahGambarBaru" class="dropzone"></div>
+                        <!-- Cropper Container -->
+                        <div id="addPengumumanCropper" style="display: none;">
+                            <img id="addPengumumanImage" src="" alt="Cropper">
                         </div>
                     </div>
                 </div>
@@ -148,44 +133,28 @@
             </div>
             <form id="editPengumumanForm" enctype="multipart/form-data" method="post">
                 <div class="modal-body">
-                    <div class="row">
-                        <input type="hidden" name="edit_id" id="edit_id">
-                        <input type="hidden" class="form-control" name="edit_kategori" id="edit_kategori" value="pengumuman">
-                        <input type="hidden" class="form-control" name="edit_status" id="edit_status" value="1">
-                        <input type="hidden" class="form-control" name="edit_users-id" id="edit_users-id" value="1">
-                        <div class="col-lg-12">
-                            <div class="mb-3">
-                                <label for="edit_judul" class="form-label">Ubah Judul Pengumuman</label>
-                                <input type="text" class="form-control" id="edit_judul" name="edit_judul">
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="mb-3">
-                                <span>Ubah Isi Pengumuman</span>
-                                <textarea id="edit_isi" name="edit_isi"></textarea>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="mb-3">
-                                <label for="edit_tags">Ubah Tags Pengumuman</label>
-                                <input type="text" class="form-control" name="edit_tags" id="edit_tags">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="mb-3">
-                                <label for="edit_link">Ubah Link Pengumuman</label>
-                                <input type="text" class="form-control" name="edit_link" id="edit_link">
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="mb-3">
-                                <span>Ubah Gambar</span>
-                                <div id="edit_gambar_dropzone" class="dropzone"></div>
-                                <img id="edit-gambar-preview" class="img-thumbnail mt-2" width="100">
-                                <div id="updatePengumumanCropper" style="display:none;">
-                                    <img id="updatePengumumanImage" src="" style="max-width:100%;">
-                                </div>
-                            </div>
+                    <input type="hidden" name="edit_id" id="edit_id">
+                    <input type="hidden" class="form-control" name="edit_kategori" id="edit_kategori" value="pengumuman">
+                    <div class="mb-3">
+                        <label for="edit_judul" class="form-label">Ubah Judul Pengumuman</label>
+                        <input type="text" class="form-control" id="edit_judul" name="edit_judul">
+                    </div>
+                    <div class="mb-3">
+                        <span>Ubah Isi Pengumuman</span>
+                        <textarea id="edit_isi" name="edit_isi"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit_tags">Ubah Tags Pengumuman</label>
+                        <input type="text" class="form-control" name="edit_tags" id="edit_tags">
+                    </div>
+                    <input type="hidden" class="form-control" name="edit_status" id="edit_status" value="1">
+                    <input type="hidden" class="form-control" name="edit_users-id" id="edit_users-id" value="1">
+                    <div class="mb-3">
+                        <span>Ubah Gambar</span>
+                        <div id="edit_gambar_dropzone" class="dropzone"></div>
+                        <img id="edit-gambar-preview" class="img-thumbnail mt-2" width="100">
+                        <div id="updatePengumumanCropper" style="display:none;">
+                            <img id="updatePengumumanImage" src="" style="max-width:100%;">
                         </div>
                     </div>
                 </div>
@@ -430,7 +399,6 @@
                     formData.append("judul", document.querySelector("#judul").value);
                     formData.append("isi", document.querySelector("#isi").value);
                     formData.append("tags", document.querySelector("#tags").value);
-                    formData.append("link", document.querySelector("#link").value);
                     formData.append("status", document.querySelector("#status").value);
                 });
 
@@ -470,9 +438,7 @@
             var isi = $('#isi');
             var edit_isi = $('#edit_isi');
             var tags = document.getElementById('tags');
-            var link = document.getElementById('link');
             var edit_tags = document.getElementById('edit_tags');
-            var edit_link = document.getElementById('edit_link');
 
             if (judul) {
                 judul.value = '';
@@ -491,12 +457,6 @@
             }
             if (edit_tags) {
                 edit_tags.value = '';
-            }
-            if (edit_link) {
-                edit_link.value = '';
-            }
-            if (link) {
-                link.value = '';
             }
             if (addDropzone) {
                 addDropzone.removeAllFiles();
@@ -526,7 +486,6 @@
             var edit_judul = $(this).data('edit_judul');
             var edit_isi = $(this).data('edit_isi');
             var edit_tags = $(this).data('edit_tags');
-            var edit_link = $(this).data('edit_link');
             var edit_gambar = $(this).data('edit_gambar');
 
             // Set data ke dalam modal
@@ -534,7 +493,6 @@
             $('#edit_judul').val(edit_judul);
             $('#edit_isi').summernote('code', edit_isi);
             $('#edit_tags').val(edit_tags);
-            $('#edit_link').val(edit_link);
 
             if (edit_gambar) {
                 $('#edit-gambar-preview').attr('src', '<?= base_url('uploads/pengumuman/') ?>' + edit_gambar);
@@ -626,7 +584,6 @@
                     formData.append("judul", document.querySelector("#edit_judul").value);
                     formData.append("isi", document.querySelector("#edit_isi").value);
                     formData.append("tags", document.querySelector("#edit_tags").value);
-                    formData.append("link", document.querySelector("#edit_link").value);
                 });
 
                 this.on("success", function(file, response) {
@@ -667,8 +624,7 @@
                     id: document.querySelector("#edit_id").value,
                     judul: document.querySelector("#edit_judul").value,
                     isi: document.querySelector("#edit_isi").value,
-                    tags: document.querySelector("#edit_tags").value,
-                    link: document.querySelector("#edit_link").value
+                    tags: document.querySelector("#edit_tags").value
                 },
                 success: function(response) {
                     if (response.success) {

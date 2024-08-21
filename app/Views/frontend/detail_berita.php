@@ -21,12 +21,8 @@
                     </h2>
                     <div class="entry-meta">
                         <ul>
-                            <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="#"><?= $berita['namalengkap'] ?></a></li>
-                            <li class="d-flex align-items-center"><i class="bi bi-clock"></i>
-                                <time datetime="<?= tanggal_indo($berita['tgl_publikasi']); ?>"><?= tanggal_indo($berita['tgl_publikasi']); ?>
-                                </time></a>
-                            </li>
-                            <li class="d-flex align-items-center"><i class="bi bi-eye"></i> <?= $berita['views'] ?></li>
+                            <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="#"><?= $berita['users_id'] ?></a></li>
+                            <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="#"><time datetime="<?= $berita['tgl_publikasi'] ?>"><?= date('M d, Y', strtotime($berita['tgl_publikasi'])) ?></time></a></li>
                         </ul>
                     </div>
                     <div class="entry-content">
@@ -60,7 +56,6 @@
                                     <h4><a href="<?= $post['slug']; ?>"><?= substr(strip_tags($post['judul']), 0, 50) ?> ...</a></h4>
                                     <time datetime="<?= $post['tgl_publikasi']; ?>"><?= date('M d, Y', strtotime($post['tgl_publikasi'])); ?></time>
                                 </div>
-                                <hr>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </div>

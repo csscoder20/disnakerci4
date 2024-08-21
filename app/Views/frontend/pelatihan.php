@@ -45,10 +45,9 @@
                                 <li class="d-flex align-items-center"><i class="bi bi-person"></i><?= $item['namalengkap']; ?></li>
                                 <li class="d-flex align-items-center">
                                     <i class="bi bi-calendar"></i>
-                                    <time datetime="<?= tanggal_indo($item['tanggal']); ?>"><?= tanggal_indo($item['tanggal']); ?>
+                                    <time datetime="<?= $item['tanggal']; ?>"><?= date('M d, Y', strtotime($item['tanggal'])); ?>
                                     </time>
                                 </li>
-                                <li class="d-flex align-items-center"><i class="bi bi-eye"></i> <?= $item['views'] ?></li>
                             </ul>
                         </div>
                     </article>

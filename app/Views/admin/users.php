@@ -146,45 +146,6 @@
     </div>
 </div>
 
-<!-- Modal Ubah Role User -->
-<div class="modal fade" id="ubahUserModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="ubahUserModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <form id="updateRoleForm">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="ubahUserModalLabel">Modal Ubah Role User</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" name="user_id" id="userId">
-                    <div class="mb-3">
-                        <span>Ubah Role User ini?</span>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="roles" id="role1" value="1">
-                        <label class="form-check-label" for="role1">
-                            Administrator
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="roles" id="role2" value="2">
-                        <label class="form-check-label" for="role2">
-                            Pencaker
-                        </label>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary" id="btn-save-changes">Simpan Perubahan</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-
 
 <!-- jQuery dan DataTables -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -314,71 +275,6 @@
             // Tampilkan gambar user
             $('#detailUserImage').attr('src', userImage);
         });
-
-        $(document).on('click', '.btn-edit', function() {
-            var userId = $(this).data('id');
-            var groupId = $(this).data('group_id');
-
-            // Set value of user_id input
-            $('#userId').val(userId);
-
-            // Set value of radio buttons based on group_id
-            if (groupId == 1) {
-                $('#role1').prop('checked', true);
-            } else if (groupId == 2) {
-                $('#role2').prop('checked', true);
-            }
-
-            // You can also load other data into the modal if needed
-            $('#ubahUserModal').modal('show');
-        });
-
-        $('#updateRoleForm').on('submit', function(e) {
-            e.preventDefault();
-
-            Swal.fire({
-                title: 'Konfirmasi',
-                text: 'Apakah Anda yakin akan mengubah role user ini?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, ubah!',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    var formData = $(this).serialize();
-
-                    $.ajax({
-                        url: '<?= base_url('admin_v2/ubah_role_user') ?>',
-                        method: 'POST',
-                        data: formData,
-                        success: function(response) {
-                            if (response.status === 'success') {
-                                Swal.fire({
-                                    title: 'Berhasil!',
-                                    text: 'Role user berhasil diubah.',
-                                    icon: 'success',
-                                    confirmButtonText: 'OK'
-                                }).then(() => {
-                                    // Reload DataTables
-                                    $('#tabelUsers').DataTable().ajax.reload();
-                                    $('#ubahUserModal').modal('hide');
-                                });
-                            } else {
-                                Swal.fire({
-                                    title: 'Gagal!',
-                                    text: 'Terjadi kesalahan saat mengubah role user.',
-                                    icon: 'error',
-                                    confirmButtonText: 'OK'
-                                });
-                            }
-                        }
-                    });
-                }
-            });
-        });
-
 
 
         $('#tabelUsers').on('click', '.btn-delete', function() {
