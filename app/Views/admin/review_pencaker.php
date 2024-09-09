@@ -96,7 +96,7 @@
                         <td>TANGGAL PENDAFTARAN</td>
                         <td>:</td>
                         <td class="fw-bold">
-                            <?php echo isset($user['created_at']) ? date_indo($user['created_at']) : '-'; ?>
+                            <?php echo isset($user['created_at']) ? tanggal_indo($user['created_at']) : '-'; ?>
                         </td>
                     </tr>
                     <tr>
