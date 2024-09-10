@@ -1653,7 +1653,7 @@ section {
 
 .blog .entry .entry-meta a {
   color: #847872;
-  /* font-size: 14px; */
+  font-size: 14px;
   display: inline-block;
   line-height: 1;
 }
@@ -1970,10 +1970,8 @@ section {
   font-weight: 700;
   padding: 0 0 0 0;
   margin: 0 0 15px 0;
-  color: #fff;
+  color: #111;
   position: relative;
-  padding: 10px;
-  background-color: #116db6;
 }
 
 .blog .sidebar .sidebar-item {

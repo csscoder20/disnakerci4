@@ -9,7 +9,6 @@ use App\Models\SettingsModel;
 use App\Models\PelatihanModel;
 use App\Models\GaleriModel;
 use App\Helpers\QrCodeHelper;
-use Config\Services;
 
 class Frontend extends BaseController
 {
@@ -159,15 +158,12 @@ class Frontend extends BaseController
         $informasiModel = new FrontendModel();
 
         // Ambil data detail berita berdasarkan slug
-        $berita = $informasiModel->get_informasi_by_slug($slug);
+        $berita = $informasiModel->where('slug', $slug)->first();
 
         if (!$berita) {
             echo ('Berita tidak ditemukan');
-            return;
         }
 
-        // Update jumlah views
-        $informasiModel->incrementViews($berita['id'], 'berita');
         $data['berita'] = $berita;
         $data['title'] = $berita['judul'] . ' - Disnakertrans Manokwari';
 
@@ -259,14 +255,11 @@ class Frontend extends BaseController
     {
         $informasiModel = new FrontendModel();
 
-        // Panggil method di model untuk mendapatkan data pengumuman
-        $pengumuman = $informasiModel->get_informasi_by_slug($slug);
+        $pengumuman = $informasiModel->where('slug', $slug)->first();
 
         if (!$pengumuman) {
-            echo ('Pengumuman tidak ditemukan');
+            echo ('pengumuman tidak ditemukan');
         }
-
-        $informasiModel->incrementViews($pengumuman['id'], 'pengumuman');
 
         $data['pengumuman'] = $pengumuman;
         $data['title'] = $pengumuman['judul'] . ' - Disnakertrans Manokwari';
@@ -287,6 +280,7 @@ class Frontend extends BaseController
 
         $pelatihan = $pelatihanModel->get_all_pelatihan_by_penulis();
 
+
         $data['title'] = 'Pelatihan - Disnakertrans Manokwari';
         $data['pelatihan'] = $pelatihan;
 
@@ -299,11 +293,6 @@ class Frontend extends BaseController
 
         // Ambil detail pelatihan berdasarkan slug
         $pelatihan = $pelatihanModel->get_pelatihan_by_slug($slug);
-
-        if ($pelatihan) {
-            // Increment views hanya untuk artikel yang diklik
-            $pelatihanModel->incrementViews($pelatihan['id']);
-        }
 
         // Ambil pelatihan lain yang memiliki jenis_pelatihan_kode yang sama, kecuali pelatihan yang sedang ditampilkan
         $recentPosts = $pelatihanModel->get_pelatihan_by_jenis($pelatihan['jenis_pelatihan_kode'], $pelatihan['id']);
@@ -348,53 +337,6 @@ class Frontend extends BaseController
         $data['title'] = 'Kontak - Disnakertrans Manokwari';
         $data['settings'] = $settings;
         return $this->loadView('frontend/kontak', $data);
-    }
-
-    public function kontak_kami()
-    {
-
-        // Validasi input
-        $validation =  Services::validation();
-        $validation->setRules([
-            'name' => 'required|alpha_space',
-            'email' => 'required|valid_email',
-            'subject' => 'required',
-            'message' => 'required'
-        ]);
-
-        if (!$validation->withRequest($this->request)->run()) {
-            // Jika validasi gagal, kirimkan pesan error kembali ke view
-            return $this->response->setJSON([
-                'status' => 'error',
-                'errors' => $validation->getErrors()
-            ]);
-        }
-
-        // Sanitasi input
-        $name = htmlspecialchars($this->request->getPost('name'), ENT_QUOTES, 'UTF-8');
-        $email = htmlspecialchars($this->request->getPost('email'), ENT_QUOTES, 'UTF-8');
-        $subject = htmlspecialchars($this->request->getPost('subject'), ENT_QUOTES, 'UTF-8');
-        $message = htmlspecialchars($this->request->getPost('message'), ENT_QUOTES, 'UTF-8');
-
-        // Proses pengiriman email
-        $emailService = Services::email();
-
-        $emailService->setFrom($email, $name);
-        $emailService->setTo('info@siripabar.com');
-        $emailService->setSubject($subject);
-        $emailService->setMessage($message);
-
-        if ($emailService->send()) {
-            return $this->response->setJSON([
-                'status' => 'success',
-                'message' => 'Pesan berhasil dikirim.'
-            ]);
-        } else {
-            return $this->response->setJSON([
-                'status' => 'error',
-                'message' => 'Gagal mengirim pesan. Silakan coba lagi.'
-            ]);
-        }
     }
 
     public function login(): string

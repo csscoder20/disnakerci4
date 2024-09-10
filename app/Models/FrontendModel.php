@@ -13,13 +13,11 @@ class FrontendModel extends Model
         'judul',
         'isi',
         'tags',
-        'link',
         'tgl_publikasi',
         'gambar',
         'status',
         'slug',
-        'users_id',
-        'views'
+        'users_id'
     ];
 
     public function getKategoriCount()
@@ -88,12 +86,10 @@ class FrontendModel extends Model
         return $this->db->table('informasi')->where('id', $id)->update($data);
     }
 
-    public function incrementViews($id, $kategori)
+    public function incrementViews($id)
     {
-        return $this->db->table($this->table)
-            ->set('views', 'views + 1', FALSE)
+        $this->set('views', 'views + 1', FALSE)
             ->where('id', $id)
-            ->where('kategori', $kategori)
             ->update();
     }
 

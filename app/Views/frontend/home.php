@@ -223,8 +223,15 @@
                 <h3>Kartu Pencari Kerja (Kartu Ak/1)</h3>
                 <p>Proses pembuatan kartu kuning dimulai dengan pendaftaran akun untuk selanjutnya mengisi formulir Ak/1 dan mengunggah dokumen. Adapun dokumen yang dibutuhkan diantaranya: Pas Foto, KTP, Ijazah Terakhir, Transkrip Nilai, Riwayat Hidup, SKCK dan Suket. Sehat</p>
             </div>
-            <div class="col-lg-3 cta-btn-container text-center d-flex align-items-center justify-content-center">
-                <?php if (!logged_in()) : ?>
+            <div class="col-lg-3 cta-btn-container text-center d-flex align-items-center justify-content-end">
+
+                <?php if (logged_in()) : ?>
+                    <?php if (in_groups('administrator')) : ?>
+                        <a class="btn-buy btn btn-success text-center" href="<?= url_to('admin_v2/dashboard') ?>">Masuk Panel Admin</a>
+                    <?php elseif (in_groups('pencaker')) : ?>
+                        <a class="btn-buy btn btn-success text-center" href="<?= url_to('pencaker/dashboard') ?>">Masuk Panel Pencaker</a>
+                    <?php endif; ?>
+                <?php else : ?>
                     <a class="cta-btn text-center btn btn-secondary" href="<?= url_to('register') ?>">Buat Akun Sekarang</a>
                 <?php endif; ?>
 

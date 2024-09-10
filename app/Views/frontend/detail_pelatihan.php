@@ -68,7 +68,7 @@
         border-right: 3px solid transparent;
         border-top: 3px solid #9e9e9e;
         bottom: -3px;
-        content: " ";
+        content: "";
         position: absolute;
     }
 
@@ -109,12 +109,8 @@
                     <div class="entry-meta">
                         <ul>
                             <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="#"><?= $pelatihan['namalengkap'] ?></a></li>
-                            <li class="d-flex align-items-center"><i class="bi bi-clock"></i>
-                                <a href="#"><time datetime="<?= tanggal_indo($pelatihan['tanggal']); ?>"><?= tanggal_indo($pelatihan['tanggal']); ?></time>
-                                </a>
-                            </li>
+                            <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="#"><time datetime="<?= $pelatihan['tanggal'] ?>"><?= date('M d, Y', strtotime($pelatihan['tanggal'])) ?></time></a></li>
                             <li class="d-flex align-items-center"><i class="bi bi-tag"></i> <a href="#"><?= $pelatihan['pelatihan'] ?></a></li>
-                            <li class="d-flex align-items-center"><i class="bi bi-eye"></i> <?= $pelatihan['views'] ?></li>
                         </ul>
                     </div>
                     <hr>
@@ -168,10 +164,19 @@
                             <p class="text-secondary">Jangan sampai ketinggalan. Yuk, catat waktu pelaksanaan pelatihan ini.</p>
                         </div>
                         <div class="card-body px-0">
+                            <?php
+                            // Misal $pelatihan['tanggal'] = '2024-08-14 14:30:00';
+
+                            // Memisahkan tanggal dan waktu
+                            $tanggal = date('Y-m-d', strtotime($pelatihan['tgl_pelatihan'])); // Output: 2024-08-14
+                            $jam = date('H:i', strtotime($pelatihan['tgl_pelatihan']));       // Output: 14:30
+                            ?>
+
+                            <!-- Menampilkan Tanggal dan Waktu Secara Terpisah -->
                             <i class="bi bi-calendar-check-fill text-info"></i>
-                            <time datetime="<?= $pelatihan['tanggal']; ?>"><?= tanggal_indo($pelatihan['tanggal']); ?></time>
+                            <time datetime="<?= $tanggal; ?>"><?= $tanggal; ?></time>
                             <i class="bi bi-clock-fill text-info"></i>
-                            <time datetime="<?= $pelatihan['tanggal']; ?>"><?= waktu_indo($pelatihan['tanggal']); ?></time>
+                            <time datetime="<?= $jam; ?>"><?= $jam; ?></time>
                         </div>
                     </div>
                     <hr>
@@ -194,7 +199,6 @@
                                             <h4><a href="<?= base_url('pelatihan/detail_pelatihan/' . $post['slug']); ?>"><?= substr(strip_tags($post['judul']), 0, 40) ?> ...</a></h4>
                                             <time datetime="<?= $post['tanggal']; ?>"><?= date('M d, Y', strtotime($post['tanggal'])); ?></time>
                                         </div>
-                                        <hr>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
                             </div>

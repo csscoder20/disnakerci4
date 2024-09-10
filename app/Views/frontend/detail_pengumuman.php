@@ -1,12 +1,6 @@
 <?= $this->extend('frontend/template') ?>
 <?= $this->section('content') ?>
 
-<style>
-    a.btn.btn-info.text-light {
-        background-color: #116db6 !important;
-        border: 0 !important;
-    }
-</style>
 <section id="breadcrumbs" class="breadcrumbs">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center">
@@ -27,18 +21,12 @@
                     </h2>
                     <div class="entry-meta">
                         <ul>
-                            <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="#"><?= $pengumuman['namalengkap'] ?></a></li>
-                            <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="#"><time datetime="<?= tanggal_indo($pengumuman['tgl_publikasi']); ?>"><?= tanggal_indo($pengumuman['tgl_publikasi']); ?></time></a></li>
-                            <li class="d-flex align-items-center"><i class="bi bi-eye"></i> <?= $pengumuman['views'] ?></li>
+                            <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="#"><?= $pengumuman['users_id'] ?></a></li>
+                            <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="#"><time datetime="<?= $pengumuman['tgl_publikasi'] ?>"><?= date('M d, Y', strtotime($pengumuman['tgl_publikasi'])) ?></time></a></li>
                         </ul>
                     </div>
-                    <div class="entry-content my-3">
+                    <div class="entry-content">
                         <?= $pengumuman['isi'] ?>
-                        <?php if (!empty($pengumuman['link'])): ?>
-                            <a href="<?= $pengumuman['link'] ?>" class="btn btn-info text-light" target="_blank">
-                                <i class="bi bi-cloud px-2"></i>Unduh Pengumuman
-                            </a>
-                        <?php endif; ?>
                     </div>
                     <div class="entry-footer">
                         <i class="bi bi-folder"></i>
@@ -66,9 +54,8 @@
                                 <div class="post-item clearfix">
                                     <img src="<?= base_url('uploads/pengumuman/' . $post['gambar']); ?>" alt="<?= $post['judul']; ?>">
                                     <h4><a href="<?= $post['slug']; ?>"><?= substr(strip_tags($post['judul']), 0, 50) ?> ...</a></h4>
-                                    <time datetime="<?= tanggal_indo($post['tgl_publikasi']); ?>"><?= tanggal_indo($post['tgl_publikasi']); ?></time>
+                                    <time datetime="<?= $post['tgl_publikasi']; ?>"><?= date('M d, Y', strtotime($post['tgl_publikasi'])); ?></time>
                                 </div>
-                                <hr>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </div>

@@ -759,7 +759,7 @@ class Admin extends BaseController
                 "status" => '<input type="checkbox" class="js-switch" data-judul="' . $item['judul'] . '"  data-id="' . $item['id'] . '" ' . ($item['status'] ? 'checked' : '') . '>',
                 "aksi" =>
                 '<div class="btn-group" role="group" aria-label="Aksi">
-                        <a href="' . base_url('pengumuman/detail_pengumuman/' . $item['slug']) . '" class="btn btn-info btn-sm" target="_blank" title="Detail Pengumuman">
+                        <a href="' . base_url('pengumuman/detail_pengumuman/' . $item['slug']) . '" class="btn btn-info btn-sm" title="Detail Pengumuman">
                             <i class="bi bi-eye"></i>
                         </a>
                         <button class="btn btn-primary btn-sm btn-edit" data-edit_id="' . $item['id'] . '"  data-edit_judul="' . htmlspecialchars($item['judul']) . '" data-edit_isi="' . htmlspecialchars($item['isi']) . '" data-edit_tags="' . $item['tags'] . '" data-edit_gambar="' . $item['gambar'] . '" data-toggle="modal"  data-toggle="modal" data-target="#ubahPengumumanModal"  title="Ubah Pengumuman"> <i class="bi bi-pencil-square"></i>
@@ -806,7 +806,6 @@ class Admin extends BaseController
             'judul' => 'required',
             'isi' => 'required',
             'tags' => 'required',
-            'link' => 'required',
             'status' => 'required|in_list[0,1]',
         ]);
 
@@ -820,13 +819,13 @@ class Admin extends BaseController
             $newName = $file->getRandomName();
             $file->move(FCPATH . 'uploads/pengumuman/', $newName);
 
+            // Jika berhasil pindah, simpan ke database
             $categoryModel = new FrontendModel();
             $categoryModel->save([
                 'kategori' => $this->request->getPost('kategori'),
                 'judul' => $this->request->getPost('judul'),
                 'isi' => $this->request->getPost('isi'),
                 'tags' => $this->request->getPost('tags'),
-                'link' => $this->request->getPost('link'),
                 'tgl_publikasi' => date('Y-m-d H:i:s'), // Tanggal saat ini
                 'gambar' => $newName,
                 'status' => $this->request->getPost('status'),
@@ -856,7 +855,6 @@ class Admin extends BaseController
         $judul = $this->request->getPost('judul');
         $isi = $this->request->getPost('isi');
         $tags = $this->request->getPost('tags');
-        $link = $this->request->getPost('link');
         $kategori = 'pengumuman';
         $status = 1;
         $users_id = user()->id;
@@ -866,7 +864,6 @@ class Admin extends BaseController
             'judul' => 'required',
             'isi' => 'required',
             'tags' => 'required',
-            'link' => 'required',
         ]);
 
         if (!$validation->withRequest($this->request)->run()) {
@@ -877,7 +874,6 @@ class Admin extends BaseController
             'judul' => $judul,
             'isi' => $isi,
             'tags' => $tags,
-            'link' => $link,
             'kategori' => $kategori,
             'status' => $status,
             'users_id' => $users_id,
@@ -885,9 +881,11 @@ class Admin extends BaseController
 
         $file = $this->request->getFile('file');
         if ($file && $file->isValid() && !$file->hasMoved()) {
+            // Ambil data gambar lama
             $current_data = $model->find($id);
             $current_gambar = $current_data['gambar'];
 
+            // Hapus gambar lama jika ada
             if (!empty($current_gambar)) {
                 $path = FCPATH . 'uploads/pengumuman/' . $current_gambar;
                 if (file_exists($path)) {
@@ -895,6 +893,7 @@ class Admin extends BaseController
                 }
             }
 
+            // Proses upload gambar baru
             $newName = $file->getRandomName();
             $file->move(FCPATH . 'uploads/pengumuman/', $newName);
             $data['gambar'] = $newName;
@@ -910,8 +909,11 @@ class Admin extends BaseController
         );
         $activityModel->add($activityMessage, user_id(), $this->request->getIPAddress());
 
+
         return $this->response->setJSON(['success' => true]);
     }
+
+
 
     public function hapus_pengumuman()
     {
@@ -1327,14 +1329,6 @@ class Admin extends BaseController
                 "active" => '<div class="text-center"><input type="checkbox" class="js-switch" data-id="' . $user->userid . '" ' . ($user->active ? 'checked' : '') . '></div>',
                 "aksi" => '
                 <div class="btn-group text-center" role="group" aria-label="Actions">
-                    <button class="btn btn-primary btn-sm btn-edit"
-                    data-id="' . $user->userid . '"
-                    data-group_id="' . $user->group_id . '"
-                    title="Ubah User"
-                    data-toggle="modal" 
-                    data-target="#ubahUserModal">
-                    <i class="bi bi-pencil"></i>
-                    </button>
                     <button class="btn btn-info btn-sm btn-detail-user" 
                         data-id="' . $user->userid . '"  
                         data-email="' . htmlspecialchars($user->email) . '" 
@@ -1790,7 +1784,7 @@ class Admin extends BaseController
     private function loadView(string $viewName, array $data = []): string
     {
         $uri = service('uri');
-        $data['current_uri'] = $uri->getSegment(2);
+        $data['current_uri'] = $uri->getSegment(2); // Ambil segmen kedua dari URI
 
         return view($viewName, $data);
     }

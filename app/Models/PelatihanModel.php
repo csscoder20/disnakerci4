@@ -9,24 +9,13 @@ class PelatihanModel extends Model
     protected $table = 'pelatihan';
     protected $primaryKey = 'id';
     protected $allowedFields = [
-        'judul',
-        'deskripsi',
-        'materi',
-        'tanggal',
-        'gambar',
-        'tgl_pelatihan',
-        'status',
-        'slug',
-        'users_id',
-        'link',
-        'jenis_pelatihan_kode',
-        'views'
+        'judul', 'deskripsi', 'materi', 'tanggal', 'gambar', 'tgl_pelatihan', 'status', 'slug', 'users_id', 'link', 'jenis_pelatihan_kode'
     ];
 
     public function get_all_pelatihan()
     {
         $builder = $this->db->table('pelatihan');
-        $builder->select('id, judul, deskripsi, materi, tanggal, gambar, tgl_pelatihan, status, slug, views, users_id, link, kode, pelatihan');
+        $builder->select('id, judul, deskripsi, materi, tanggal, gambar, tgl_pelatihan, status, slug, users_id, link, kode, pelatihan');
         $builder->join('jenis_pelatihan', 'jenis_pelatihan.kode = pelatihan.jenis_pelatihan_kode');
 
         $query = $builder->get();
@@ -36,7 +25,7 @@ class PelatihanModel extends Model
     public function get_all_pelatihan_by_penulis()
     {
         $builder = $this->db->table('pelatihan');
-        $builder->select('pelatihan.id, judul, deskripsi, materi, tanggal, gambar, tgl_pelatihan, pelatihan.status, slug, views, users_id, link, kode, pelatihan, namalengkap');
+        $builder->select('pelatihan.id, judul, deskripsi, materi, tanggal, gambar, tgl_pelatihan, pelatihan.status, slug, users_id, link, kode, pelatihan, namalengkap');
         $builder->join('jenis_pelatihan', 'jenis_pelatihan.kode = pelatihan.jenis_pelatihan_kode');
         $builder->join('users', 'users.id = pelatihan.users_id');
         $builder->where('pelatihan.status', 1);
@@ -49,7 +38,7 @@ class PelatihanModel extends Model
     public function get_pelatihan_by_slug($slug)
     {
         $builder = $this->db->table('pelatihan');
-        $builder->select('pelatihan.id, judul, deskripsi, materi, tanggal, gambar, tgl_pelatihan, pelatihan.status, slug, views, users_id, link, jenis_pelatihan_kode, kode, pelatihan, namalengkap');
+        $builder->select('pelatihan.id, judul, deskripsi, materi, tanggal, gambar, tgl_pelatihan, pelatihan.status, slug, users_id, link, jenis_pelatihan_kode, kode, pelatihan, namalengkap');
         $builder->join('jenis_pelatihan', 'jenis_pelatihan.kode = pelatihan.jenis_pelatihan_kode');
         $builder->join('users', 'users.id = pelatihan.users_id');
         $builder->where('slug', $slug);
@@ -69,13 +58,5 @@ class PelatihanModel extends Model
         }
 
         return $builder->findAll();
-    }
-
-    public function incrementViews($id)
-    {
-        return $this->db->table($this->table)
-            ->set('views', 'views + 1', FALSE)
-            ->where('id', $id)
-            ->update();
     }
 }
